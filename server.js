@@ -11,18 +11,17 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files (for Render and local development)
 app.use(express.static(path.join(__dirname)));
 
-// MongoDB Connection
+// MongoDB Connection (optional - app works without it)
 const MONGODB_URI = process.env.MONGODB_URI;
 if (MONGODB_URI) {
   mongoose.connect(MONGODB_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 } else {
-  console.warn('MONGODB_URI not set. Using hardcoded admin credentials only.');
+  console.log('No MongoDB URI set - using admin login only');
 }
 
 // User Schema
