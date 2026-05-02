@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files (for Render and local development)
-app.use(express.static(path.join(__dirname)));
+// Serve static files from public folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB Connection (optional - app works without it)
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -39,11 +39,11 @@ const ADMIN_PASSWORD_HASH = '$2b$10$E9rnJsqaA8DZsN4LMx6.l.h4hKqN5Rf9qN6G5KL5kR6R
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/welcome', (req, res) => {
-  res.sendFile(path.join(__dirname, 'welcome.html'));
+  res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
 });
 
 app.post('/login', async (req, res) => {
